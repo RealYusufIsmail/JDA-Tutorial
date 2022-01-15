@@ -5,17 +5,18 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class PingCommand extends Command {
+
     /**
      * Were the command is registered.
      */
     public PingCommand() {
-        super("ping", "Will reply with pong", true, false);
+        super("ping", "The bot will reply with pong", true, false);
     }
 
     /**
      * Were the command is created.
      *
-     * @param slashCommandEvent the event that is fired.
+     * @param slashCommandEvent the event that is fired
      */
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
