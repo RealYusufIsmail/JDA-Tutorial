@@ -1,3 +1,4 @@
 # JDA-Toturial
 My JDA tutorial on YouTube.
-Coming soon
+Episodes:
+[Episode one](https://github.com/RealYusufIsmail/JDA-Toturial/tree/ep_1)
