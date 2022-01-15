@@ -12,12 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandHandler extends CoreSlashCommandHandler {
-
     /**
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      *
-     * @param jda The JDA class
-     * @param guild The Guild class
+     * @param jda used to register global command
+     * @param guild used to register guild commands
      */
     protected CommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         super(jda, guild);
@@ -31,6 +30,7 @@ public class CommandHandler extends CoreSlashCommandHandler {
     /**
      * @return used to set the bot owner id.
      */
+    @Override
     protected long botOwnerId() {
         return 0;
     }

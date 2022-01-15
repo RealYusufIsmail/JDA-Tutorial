@@ -12,7 +12,7 @@ public class Bot {
         JDA jda = JDABuilder
                 .createDefault(BotConfig.token())
                 .setStatus(OnlineStatus.ONLINE)
-                .setActivity(Activity.playing("Example"))
+                .setActivity(Activity.playing("Hello"))
                 .build();
 
         jda.awaitReady()

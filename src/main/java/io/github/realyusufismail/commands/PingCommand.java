@@ -10,17 +10,17 @@ public class PingCommand extends Command {
      * Were the command is registered.
      */
     public PingCommand() {
-        super("ping", "The bot will reply with pong", true, false);
+        super("ping", "Will reply with pong", true, false);
     }
 
     /**
      * Were the command is created.
      *
-     * @param slashCommandEvent the event that is fired
+     * @param slashCommandEvent the event that is fired.
      */
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
-        slashCommandEvent.reply("Pong")
+        slashCommandEvent.reply("Pong!")
                 .queue();
     }
 }
