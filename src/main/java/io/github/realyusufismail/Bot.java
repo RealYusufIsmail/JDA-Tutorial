@@ -27,12 +27,12 @@ import javax.security.auth.login.LoginException;
 public class Bot {
     public static void main(String[] args) throws LoginException, InterruptedException {
         JDA jda = JDABuilder
-                .createDefault(BotConfig.token())
+                .createDefault(BotConfig.getToken())
                 .setStatus(OnlineStatus.ONLINE)
                 .setActivity(Activity.playing("Hello"))
                 .build();
 
         jda.awaitReady()
-                .addEventListener(new CommandHandler(jda, jda.getGuildById(BotConfig.guildId())));
+                .addEventListener(new CommandHandler(jda, jda.getGuildById(BotConfig.getGuildId())));
     }
 }

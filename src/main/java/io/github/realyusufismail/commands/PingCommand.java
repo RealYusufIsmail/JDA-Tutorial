@@ -27,7 +27,7 @@ public class PingCommand extends Command {
      * Were the command is registered.
      */
     public PingCommand() {
-        super("ping", "Will reply with pong", true, false);
+        super("ping", "Will reply with pong", true);
     }
 
     /**

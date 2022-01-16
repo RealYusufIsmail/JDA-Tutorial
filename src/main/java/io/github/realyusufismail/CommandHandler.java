@@ -17,6 +17,7 @@
 
 package io.github.realyusufismail;
 
+import io.github.realyusufismail.commands.HowAreYouCommand;
 import io.github.realyusufismail.commands.PingCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.CoreSlashCommandHandler;
@@ -41,6 +42,8 @@ public class CommandHandler extends CoreSlashCommandHandler {
         List<Command> handler = new ArrayList<>();
 
         handler.add(new PingCommand());
+        handler.add(new HowAreYouCommand());
+
         queueAndRegisterCommands(handler);
     }
 
@@ -48,7 +51,7 @@ public class CommandHandler extends CoreSlashCommandHandler {
      * @return used to set the bot owner id.
      */
     @Override
-    protected long botOwnerId() {
-        return 0;
+    protected Long botOwnerId() {
+        return null;
     }
 }
