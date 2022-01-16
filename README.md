@@ -8,3 +8,5 @@ Episodes:
 [Episode Two](https://github.com/RealYusufIsmail/JDA-Tutorial/tree/ep_2)
 <br>
 [Episode Three](https://github.com/RealYusufIsmail/JDA-Tutorial/tree/ep_3)
+<br>
+[Episode Four](https://github.com/RealYusufIsmail/JDA-Tutorial/tree/ep_4)
