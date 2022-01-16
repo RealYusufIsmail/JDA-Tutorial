@@ -19,6 +19,7 @@ package io.github.realyusufismail;
 
 import io.github.realyusufismail.commands.HowAreYouCommand;
 import io.github.realyusufismail.commands.PingCommand;
+import io.github.realyusufismail.commands.moderation.BanCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.CoreSlashCommandHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
@@ -43,6 +44,7 @@ public class CommandHandler extends CoreSlashCommandHandler {
 
         handler.add(new PingCommand());
         handler.add(new HowAreYouCommand());
+        handler.add(new BanCommand());
 
         queueAndRegisterCommands(handler);
     }
