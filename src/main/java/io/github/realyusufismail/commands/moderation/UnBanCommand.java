@@ -21,47 +21,43 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactio
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.jetbrains.annotations.NotNull;
 
-public class KickCommand extends Command {
+public class UnBanCommand extends Command {
     private static final String USER_OPTION = "user";
     private static final String REASON_OPTION = "reason";
-
-    public KickCommand() {
-        super("kick", "Gives the ability to kick a user", true);
+    public UnBanCommand() {
+        super("unban", "Used to unban a user", true);
 
         getCommandData()
-                .addOption(OptionType.USER, USER_OPTION, "The member who you want to kick", true)
-                .addOption(OptionType.STRING, REASON_OPTION, "The reason why you want to kick the member", true);
+                .addOption(OptionType.USER, USER_OPTION, "The user who you want to unban", true)
+                .addOption(OptionType.STRING, REASON_OPTION, "The reason why your are unbanning the user",
+                        true);
     }
     /**
      * Were the command is created.
      *
-     * @param slashCommandEvent the event that is fired
+     * @param slashCommandEvent the event that is fired.
      */
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
-        Member targetMember = slashCommandEvent.getOption(USER_OPTION).getAsMember();
-        Member author = slashCommandEvent.getMember();
+        User targetUser = slashCommandEvent.getOption(USER_OPTION).getAsUser();
         String reason = slashCommandEvent.getOption(REASON_OPTION).getAsString();
         Guild guild = slashCommandEvent.getGuild();
+        Member author = slashCommandEvent.getMember();
+        Member bot = guild.getSelfMember();
 
-        if(targetMember == null) {
-            slashCommandEvent.reply("The provided member is null")
+        if(!author.hasPermission(Permission.BAN_MEMBERS)) {
+            slashCommandEvent.reply("You don't have the right perms")
                     .setEphemeral(true)
                     .queue();
         }
 
-        if(!author.hasPermission(Permission.KICK_MEMBERS)) {
-            slashCommandEvent.reply("You do not have the required perms to run the command.")
-                    .setEphemeral(true)
-                    .queue();
-        }
-
-        if(!guild.getSelfMember().hasPermission(Permission.KICK_MEMBERS)) {
-            slashCommandEvent.reply("I do not have the required perms to run the command.")
+        if(!bot.hasPermission(Permission.BAN_MEMBERS)) {
+            slashCommandEvent.reply("I don't have the right perms")
                     .setEphemeral(true)
                     .queue();
         }
@@ -72,9 +68,8 @@ public class KickCommand extends Command {
                     .queue();
         }
 
-        guild.kick(targetMember, reason)
-                .flatMap(success -> slashCommandEvent.reply("I have kicked the member " +
-                        targetMember.getUser().getAsTag()))
+        guild.unban(targetUser).reason(reason)
+                .flatMap(success -> slashCommandEvent.reply("I have unbanned the user " + targetUser.getAsTag()))
                 .queue();
     }
 }

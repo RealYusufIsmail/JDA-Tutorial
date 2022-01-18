@@ -90,7 +90,7 @@ public class BanCommand extends Command {
                     .queue();
         }
 
-        if(reason.length() == 512) {
+        if(reason.length() >= 512) {
             slashCommandEvent.reply("The reason can only be under 512 characters")
                     .setEphemeral(true)
                     .queue();
