@@ -23,7 +23,6 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import org.jetbrains.annotations.NotNull;
 
 public class PurgeCommand extends Command {
     private static final String AMOUNT_OF_MESSAGES = "amount";
@@ -31,9 +30,9 @@ public class PurgeCommand extends Command {
     public PurgeCommand() {
         super("purge", "Allows you to delete a batch of messages", true);
 
-        getCommandData()
-                .addOptions(new OptionData(OptionType.INTEGER, AMOUNT_OF_MESSAGES, "The amount of messages to delete", true)
-                        .setRequiredRange(1,100));
+       getCommandData()
+               .addOptions(new OptionData(OptionType.INTEGER, AMOUNT_OF_MESSAGES, "The amount of messages to delete")
+                       .setRequiredRange(2, 100));
     }
 
 
@@ -43,29 +42,27 @@ public class PurgeCommand extends Command {
      * @param slashCommandEvent the event that is fired.
      */
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
+    public void onSlashCommand(SlashCommandEvent slashCommandEvent) {
         var amount = slashCommandEvent.getOption(AMOUNT_OF_MESSAGES).getAsLong();
         var channel = slashCommandEvent.getChannel();
         var author = slashCommandEvent.getMember();
         var bot = slashCommandEvent.getGuild().getSelfMember();
 
-        if(!bot.hasPermission(Permission.MESSAGE_MANAGE)) {
-            slashCommandEvent.reply("I dont have the permission MESSSAGE_MANAGE meaning I cant delete messages")
+        if (!bot.hasPermission(Permission.MESSAGE_MANAGE)) {
+            slashCommandEvent.reply("I don't have the permission MESSAGE MANAGE")
                     .setEphemeral(true)
                     .queue();
-            return;
         }
 
         if(!author.hasPermission(Permission.MESSAGE_MANAGE)) {
-            slashCommandEvent.reply("You dont have the permission MESSSAGE_MANAGE meaning I cant delete messages")
+            slashCommandEvent.reply("You don't have the permission MESSAGE MANAGE")
                     .setEphemeral(true)
                     .queue();
-            return;
         }
 
         channel.getHistory().retrievePast((int) amount).queue(messages -> {
             if(messages.isEmpty()) {
-                slashCommandEvent.reply("No messages found to delete")
+                slashCommandEvent.reply("There are no messages to delete")
                         .setEphemeral(true)
                         .queue();
             } else {
