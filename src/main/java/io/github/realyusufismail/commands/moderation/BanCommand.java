@@ -35,15 +35,6 @@ public class BanCommand extends Command {
     private static final String REASON_OPTION = "reason";
     private static final String MESSAGE_DELEATION_OPTION = "delete_message_history_days";
 
-    //Message to delete days
-    private static final String ONE_DAY = "one_day";
-    private static final String TWO_DAYS = "two_days";
-    private static final String THREE_DAYS = "three_days";
-    private static final String FOUR_DAYS = "four_days";
-    private static final String FIVE_DAYS = "five_days";
-    private static final String SIX_DAYS = "six_days";
-    private static final String SEVEN_DAYS = "seven_days";
-
     public BanCommand() {
         super("ban", "Ban a user from the server.", true);
 
@@ -55,14 +46,25 @@ public class BanCommand extends Command {
                         .addChoices(deleationDays));
     }
 
+    /**
+     *   private static final List<net.dv8tion.jda.api.interactions.commands.Command.Choice> deleationDays = List
+     *             .of(new net.dv8tion.jda.api.interactions.commands.Command.Choice("One Day", ONE_DAY),
+     *                 new net.dv8tion.jda.api.interactions.commands.Command.Choice("Two Days", TWO_DAYS),
+     *                 new net.dv8tion.jda.api.interactions.commands.Command.Choice("Three Days", THREE_DAYS),
+     *                 new net.dv8tion.jda.api.interactions.commands.Command.Choice("Four Days", FOUR_DAYS),
+     *                 new net.dv8tion.jda.api.interactions.commands.Command.Choice("Five Days", FIVE_DAYS),
+     *                 new net.dv8tion.jda.api.interactions.commands.Command.Choice("Six Days", SIX_DAYS),
+     *                 new net.dv8tion.jda.api.interactions.commands.Command.Choice("Seven Days", SEVEN_DAYS));
+     */
+
     private static final List<net.dv8tion.jda.api.interactions.commands.Command.Choice> deleationDays = List
-            .of(new net.dv8tion.jda.api.interactions.commands.Command.Choice("One Day", ONE_DAY),
-                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Two Days", TWO_DAYS),
-                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Three Days", THREE_DAYS),
-                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Four Days", FOUR_DAYS),
-                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Five Days", FIVE_DAYS),
-                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Six Days", SIX_DAYS),
-                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Seven Days", SEVEN_DAYS));
+            .of(new net.dv8tion.jda.api.interactions.commands.Command.Choice("One Day", 1),
+                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Two Days", 2),
+                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Three Days", 3),
+                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Four Days", 4),
+                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Five Days", 5),
+                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Six Days", 6),
+                new net.dv8tion.jda.api.interactions.commands.Command.Choice("Seven Days", 7));
 
     /**
      * Were the command is created.
@@ -103,7 +105,7 @@ public class BanCommand extends Command {
             .queue();
 
         } else {
-            guild.ban(targetUser, delDays, reason)
+            guild.ban(targetUser, 0, reason)
             .flatMap(success -> slashCommandEvent.reply("I have banned the user " + targetUser.getAsTag()))
             .queue();
         }
