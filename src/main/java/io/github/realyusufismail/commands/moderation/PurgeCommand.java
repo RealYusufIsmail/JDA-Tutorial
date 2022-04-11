@@ -21,53 +21,46 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactio
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 public class PurgeCommand extends Command {
-    private static final String AMOUNT_OF_MESSAGES = "amount";
+    private static final String AMOUNT = "amount";
 
     public PurgeCommand() {
-        super("purge", "Allows you to delete a batch of messages", true);
+        super("purge", "Used to delete messages", true);
 
-       getCommandData()
-               .addOptions(new OptionData(OptionType.INTEGER, AMOUNT_OF_MESSAGES, "The amount of messages to delete")
-                       .setRequiredRange(2, 100));
+        getCommandData()
+                .addOptions(new OptionData(OptionType.STRING, AMOUNT, "Amount of messages to delete")
+                        .setRequiredRange(2, 100));
     }
 
-
-    /**
-     * Were the command is created.
-     *
-     * @param slashCommandEvent the event that is fired.
-     */
     @Override
     public void onSlashCommand(SlashCommandEvent slashCommandEvent) {
-        var amount = slashCommandEvent.getOption(AMOUNT_OF_MESSAGES).getAsLong();
+        var amount = slashCommandEvent.getOption(AMOUNT).getAsLong();
         var channel = slashCommandEvent.getChannel();
         var author = slashCommandEvent.getMember();
         var bot = slashCommandEvent.getGuild().getSelfMember();
 
-        if (!bot.hasPermission(Permission.MESSAGE_MANAGE)) {
-            slashCommandEvent.reply("I don't have the permission MESSAGE MANAGE")
+        if(!bot.hasPermission(Permission.MESSAGE_MANAGE)) {
+            slashCommandEvent.reply("I don't have the permission MESSAGE MANAGE meaning I can't delete messages!")
                     .setEphemeral(true)
                     .queue();
         }
 
         if(!author.hasPermission(Permission.MESSAGE_MANAGE)) {
-            slashCommandEvent.reply("You don't have the permission MESSAGE MANAGE")
+            slashCommandEvent.reply("You don't have the permission MESSAGE MANAGE meaning you can't delete messages!")
                     .setEphemeral(true)
                     .queue();
         }
 
         channel.getHistory().retrievePast((int) amount).queue(messages -> {
             if(messages.isEmpty()) {
-                slashCommandEvent.reply("There are no messages to delete")
+                slashCommandEvent.reply("There are no messages to delete!")
                         .setEphemeral(true)
                         .queue();
             } else {
                 channel.purgeMessages(messages);
-                slashCommandEvent.reply("Deleted " + messages.size() + " messages").queue();
+                slashCommandEvent.reply("Successfully deleted " + messages.size() + " messages!").queue();
             }
         });
     }
