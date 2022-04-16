@@ -12,7 +12,7 @@ repositories {
 dependencies {
     //JDA
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.14'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.16'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
 //loggers
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
@@ -20,4 +20,8 @@ dependencies {
     implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j18-impl', version: '2.17.1'
 //JDA annotations
     implementation group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
+    //https
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+    //Gson
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
 }

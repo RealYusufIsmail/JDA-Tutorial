@@ -17,14 +17,14 @@
 
 package io.github.realyusufismail.commands;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import java.util.Objects;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
-public class HowAreYouCommand extends Command {
+public class HowAreYouCommand extends SlashCommand {
     //logger
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HowAreYouCommand.class);
     private static final String REPLY_OPTION = "reply";

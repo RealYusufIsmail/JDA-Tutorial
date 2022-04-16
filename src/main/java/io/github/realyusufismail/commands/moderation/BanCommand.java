@@ -17,7 +17,7 @@
 
 package io.github.realyusufismail.commands.moderation;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class BanCommand extends Command {
+public class BanCommand extends SlashCommand {
     private static final String USER_OPTION = "user";
     private static final String REASON_OPTION = "reason";
     private static final String MESSAGE_DELEATION_OPTION = "delete_message_history_days";

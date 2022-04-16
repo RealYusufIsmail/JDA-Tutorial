@@ -17,7 +17,7 @@
 
 package io.github.realyusufismail.commands.moderation;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -26,7 +26,7 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.jetbrains.annotations.NotNull;
 
-public class UnBanCommand extends Command {
+public class UnBanCommand extends SlashCommand {
     private static final String USER_OPTION = "user";
     private static final String REASON_OPTION = "reason";
     public UnBanCommand() {

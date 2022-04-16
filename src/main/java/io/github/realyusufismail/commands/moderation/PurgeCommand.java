@@ -17,13 +17,13 @@
 
 package io.github.realyusufismail.commands.moderation;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
-public class PurgeCommand extends Command {
+public class PurgeCommand extends SlashCommand {
     private static final String AMOUNT = "amount";
 
     public PurgeCommand() {

@@ -17,11 +17,11 @@
 
 package io.github.realyusufismail.commands;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class PingCommand extends Command {
+public class PingCommand extends SlashCommand {
 
     /**
      * Were the command is registered.

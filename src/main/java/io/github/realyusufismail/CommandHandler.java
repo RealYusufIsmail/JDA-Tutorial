@@ -19,12 +19,13 @@ package io.github.realyusufismail;
 
 import io.github.realyusufismail.commands.HowAreYouCommand;
 import io.github.realyusufismail.commands.PingCommand;
+import io.github.realyusufismail.commands.github.GithubCommand;
 import io.github.realyusufismail.commands.moderation.BanCommand;
 import io.github.realyusufismail.commands.moderation.KickCommand;
 import io.github.realyusufismail.commands.moderation.PurgeCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.CoreSlashCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import org.jetbrains.annotations.NotNull;
@@ -42,13 +43,14 @@ public class CommandHandler extends CoreSlashCommandHandler {
     protected CommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         super(jda, guild);
 
-        List<Command> handler = new ArrayList<>();
+        List<SlashCommand> handler = new ArrayList<>();
 
         handler.add(new PingCommand());
         handler.add(new HowAreYouCommand());
         handler.add(new BanCommand());
         handler.add(new KickCommand());
         handler.add(new PurgeCommand());
+        handler.add(new GithubCommand());
 
         queueAndRegisterCommands(handler);
     }
