@@ -17,22 +17,15 @@
 
 package io.github.realyusufismail;
 
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import javax.security.auth.login.LoginException;
-
-public class Bot {
-    public static void main(String[] args) throws LoginException, InterruptedException {
-        JDA jda = JDABuilder
-                .createDefault(BotConfig.getToken())
-                .setStatus(OnlineStatus.ONLINE)
-                .setActivity(Activity.playing("Hello"))
-                .build();
-
-        jda.awaitReady()
-                .addEventListener(new CommandHandler(jda, jda.getGuildById(BotConfig.getGuildId())), new OnActionListener());
+public class OnActionListener extends ListenerAdapter {
+    @Override
+    public void onGuildMemberRemove(GuildMemberRemoveEvent event) {
+        var user = event.getUser();
+        var guild = event.getJDA().getGuildById(938122131949097052L);
+        var channel = guild.getTextChannelById(938122131949097055L);
+        channel.sendMessage("**" + user.getAsTag() + "** has left the server.").queue();
     }
 }
