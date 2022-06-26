@@ -23,9 +23,8 @@ import io.github.realyusufismail.commands.github.GithubCommand;
 import io.github.realyusufismail.commands.moderation.BanCommand;
 import io.github.realyusufismail.commands.moderation.KickCommand;
 import io.github.realyusufismail.commands.moderation.PurgeCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.CoreSlashCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.extension.SlashCommandExtender;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.handler.SlashCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import org.jetbrains.annotations.NotNull;
@@ -33,17 +32,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandHandler extends CoreSlashCommandHandler {
-    /**
-     * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
-     *
-     * @param jda used to register global command
-     * @param guild used to register guild commands
-     */
-    protected CommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
+public class SlashHandler extends SlashCommandHandler {
+
+    protected SlashHandler(@NotNull JDA jda, @NotNull Guild guild) {
         super(jda, guild);
 
-        List<SlashCommand> handler = new ArrayList<>();
+        List<SlashCommandExtender> handler = new ArrayList<>();
 
         handler.add(new PingCommand());
         handler.add(new HowAreYouCommand());
@@ -52,14 +46,14 @@ public class CommandHandler extends CoreSlashCommandHandler {
         handler.add(new PurgeCommand());
         handler.add(new GithubCommand());
 
-        queueAndRegisterCommands(handler);
+        queueAndRegisterSlashCommands(handler);
     }
 
     /**
      * @return used to set the bot owner id.
      */
     @Override
-    protected Long botOwnerId() {
-        return null;
+    protected long botOwnerId() {
+        return 0;
     }
 }

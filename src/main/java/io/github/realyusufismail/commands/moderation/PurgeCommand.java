@@ -17,41 +17,23 @@
 
 package io.github.realyusufismail.commands.moderation;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommandBuilder;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.extension.SlashCommandExtender;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.jetbrains.annotations.NotNull;
 
-public class PurgeCommand extends SlashCommand {
+public class PurgeCommand extends SlashCommandExtender {
     private static final String AMOUNT = "amount";
 
-    public PurgeCommand() {
-        super("purge", "Used to delete messages", true);
-
-        getCommandData()
-                .addOptions(new OptionData(OptionType.STRING, AMOUNT, "Amount of messages to delete")
-                        .setRequiredRange(2, 100));
-    }
 
     @Override
-    public void onSlashCommand(SlashCommandEvent slashCommandEvent) {
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         var amount = slashCommandEvent.getOption(AMOUNT).getAsLong();
         var channel = slashCommandEvent.getChannel();
-        var author = slashCommandEvent.getMember();
-        var bot = slashCommandEvent.getGuild().getSelfMember();
-
-        if(!bot.hasPermission(Permission.MESSAGE_MANAGE)) {
-            slashCommandEvent.reply("I don't have the permission MESSAGE MANAGE meaning I can't delete messages!")
-                    .setEphemeral(true)
-                    .queue();
-        }
-
-        if(!author.hasPermission(Permission.MESSAGE_MANAGE)) {
-            slashCommandEvent.reply("You don't have the permission MESSAGE MANAGE meaning you can't delete messages!")
-                    .setEphemeral(true)
-                    .queue();
-        }
 
         channel.getHistory().retrievePast((int) amount).queue(messages -> {
             if(messages.isEmpty()) {
@@ -63,5 +45,15 @@ public class PurgeCommand extends SlashCommand {
                 slashCommandEvent.reply("Successfully deleted " + messages.size() + " messages!").queue();
             }
         });
+    }
+
+    @Override
+    public SlashCommand build() {
+        return new SlashCommandBuilder("purge", "Used to delete messages")
+                .addOptions(new OptionData(OptionType.STRING, AMOUNT, "Amount of messages to delete")
+                        .setRequiredRange(2, 100))
+                .build()
+                .setUserPerms(Permission.MESSAGE_MANAGE)
+                .setBotPerms(Permission.MESSAGE_MANAGE);
     }
 }

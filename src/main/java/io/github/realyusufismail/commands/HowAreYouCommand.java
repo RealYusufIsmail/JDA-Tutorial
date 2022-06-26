@@ -17,46 +17,40 @@
 
 package io.github.realyusufismail.commands;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import java.util.Objects;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommandBuilder;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.extension.SlashCommandExtender;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
-public class HowAreYouCommand extends SlashCommand {
-    //logger
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HowAreYouCommand.class);
+public class HowAreYouCommand extends SlashCommandExtender {
     private static final String REPLY_OPTION = "reply";
     private static final String GOOD = "good";
     private static final String BAD = "bad";
 
-    /**
-     * Were the command is registered.
-     */
-    public HowAreYouCommand() {
-        super("how_are_you", "will reply with good or I hope you feel better", true);
-
-        getCommandData()
-                .addOptions(new OptionData(OptionType.STRING, REPLY_OPTION, "Choices if you are well or not", true)
-                        .addChoice("Good", GOOD).addChoice("Bad", BAD));
-    }
-
-    /**
-     * Were the command is created.
-     *
-     * @param slashCommandEvent the event that is fired
-     */
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
-        String replyOption = slashCommandEvent.getOption(REPLY_OPTION).getAsString();
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+        String replyOption = event.getOption(REPLY_OPTION).getAsString();
 
         if(Objects.equals(replyOption, GOOD)) {
-            slashCommandEvent.reply("Nice to see you are doing well")
+            event.reply("Nice to see you are doing well")
                     .queue();
         } else if (Objects.equals(replyOption, BAD)) {
-            slashCommandEvent.reply("I hope you get better")
+            event.reply("I hope you get better")
                     .queue();
         }
+    }
+
+    @Override
+    public SlashCommand build() {
+        return new SlashCommandBuilder("howareyou", "Replies with how are you")
+                .addOptions(new OptionData(OptionType.STRING, REPLY_OPTION, "Good or bad", true)
+                        .addChoice("Good", GOOD)
+                        .addChoice("Bad", BAD))
+                .build();
     }
 }

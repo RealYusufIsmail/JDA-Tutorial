@@ -20,9 +20,11 @@ package io.github.realyusufismail.commands.github;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommandBuilder;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.extension.SlashCommandExtender;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -38,17 +40,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class GithubCommand extends SlashCommand {
+public class GithubCommand extends SlashCommandExtender {
     private static final String REPO_NAME = "repo_name";
-    /**
-     * Were the command is registered.
-     */
-    public GithubCommand() {
-        super("github", "Used to get info about a repo", true);
-
-        getCommandData()
-                .addOption(OptionType.STRING, REPO_NAME, "Repo name", true);
-    }
 
     /**
      * Were the command is created.
@@ -56,7 +49,7 @@ public class GithubCommand extends SlashCommand {
      * @param slashCommandEvent The event that is created.
      */
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         var repoName = slashCommandEvent.getOption(REPO_NAME).getAsString();
         try {
             CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -109,5 +102,12 @@ public class GithubCommand extends SlashCommand {
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public SlashCommand build() {
+        return new SlashCommandBuilder("github", "Used to get info about a repo")
+                .addOption(OptionType.STRING, REPO_NAME, "Repo name", true)
+                .build();
     }
 }

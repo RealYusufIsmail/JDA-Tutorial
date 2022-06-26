@@ -33,6 +33,6 @@ public class Bot {
                 .build();
 
         jda.awaitReady()
-                .addEventListener(new CommandHandler(jda, jda.getGuildById(BotConfig.getGuildId())), new OnActionListener());
+                .addEventListener(new SlashHandler(jda, jda.getGuildById(BotConfig.getGuildId())), new OnActionListener());
     }
 }

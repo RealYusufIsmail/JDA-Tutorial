@@ -1,24 +1,20 @@
 plugins {
     id'java'
 }
-sourceCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+
 repositories {
     mavenCentral()
-    maven {
-        name 'm2-dv8tion'
-        url 'https://m2.dv8tion.net/releases'
-    }
 }
 dependencies {
     //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.16'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
-//loggers
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j18-impl', version: '2.17.1'
-//JDA annotations
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.12'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5.basic', version: '1.0.4'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
+    //loggers
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j18-impl', version: '2.17.2'
     implementation group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
     //https
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'

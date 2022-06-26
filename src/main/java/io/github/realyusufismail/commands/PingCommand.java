@@ -17,27 +17,23 @@
 
 package io.github.realyusufismail.commands;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommandBuilder;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.extension.SlashCommandExtender;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class PingCommand extends SlashCommand {
+public class PingCommand extends SlashCommandExtender {
 
-    /**
-     * Were the command is registered.
-     */
-    public PingCommand() {
-        super("ping", "Will reply with pong", true);
+    @Override
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+        event.reply("Pong!")
+                .queue();
     }
 
-    /**
-     * Were the command is created.
-     *
-     * @param slashCommandEvent the event that is fired.
-     */
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
-        slashCommandEvent.reply("Pong!")
-                .queue();
+    public SlashCommand build() {
+        return new SlashCommandBuilder("ping", "Replies with Pong!")
+                .build();
     }
 }
